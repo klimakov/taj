@@ -1,17 +1,35 @@
 package ru.klimakov.taj.person;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;;
 
-@Entity
-public class Person {
+public class Person implements Persistable<Integer> {
     @Id
-    int id;
-    String name;
-    int age;
+    private Integer id;
+    private String name;
+    private int age;
 
-    public int getId() {
+    @Transient
+    @JsonIgnore
+    private boolean isNew = true;
+
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
+    }
+
+    @Override
+    public boolean isNew() {
+        return isNew;
     }
 
     public void setId(int id) {

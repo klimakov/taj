@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 public class PersonController {
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
@@ -17,7 +15,7 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping("/persons")
-    public List<Person> getPersons() {
+    public Iterable<Person> getPersons() {
         return personService.findAll();
     }
 
@@ -27,7 +25,7 @@ public class PersonController {
     }
 
     @GetMapping("/fake-person-and-return-all")
-    public List<Person> fakePersonAndReturnAll() {
+    public Iterable<Person> fakePersonAndReturnAll() {
         return personService.fakePersonAndReturnAll();
     }
 

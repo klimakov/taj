@@ -14,7 +14,7 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    public List<Person> findAll() {
+    public Iterable<Person> findAll() {
         return personRepository.findAll();
     }
 
@@ -26,14 +26,14 @@ public class PersonService {
     @Transactional
     public Person saveFakePersonAndRollback() {
         Person fakePerson = new Person();
-        fakePerson.id = 100;
-        fakePerson.name = "Fake Person";
-        fakePerson.age = 99;
+        fakePerson.setId(100);
+        fakePerson.setName("Fake Person");
+        fakePerson.setAge(99);
         personRepository.save(fakePerson);
         throw new RuntimeException("Transaction should be rolled back");
     }
 
-    public List<Person> fakePersonAndReturnAll() {
+    public Iterable<Person> fakePersonAndReturnAll() {
         try {
             saveFakePersonAndRollback();
         } catch (RuntimeException ex) {
